@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dashboards por localidade da Estação Ambiental IoT.">
+  <title>Dashboards — Estação Ambiental IoT</title>
+  <link rel="stylesheet" href="../CSS/painel.css?v=20261027b">
+  <link rel="stylesheet" href="../CSS/dashboard.css?v=20261027a">
+  <script type="module" src="../JAVA%20SCRIPT/dashboard.js?v=20261027a"></script>
+</head>
+<body class="pagina-dashboard">
+  <a class="pular-conteudo" href="#conteudo-dashboard">Ir para o dashboard</a>
+  <header class="cabecalho">
+    <div class="barra-navegacao">
+      <a class="marca" href="index.html" aria-label="AERIS — Estação Ambiental IoT">AERIS</a>
+      <nav aria-label="Navegação do dashboard">
+        <ul>
+          <li><a href="#dashboard" aria-current="location">Dashboard</a></li>
+          <li><a href="#historico">Histórico</a></li>
+          <li><a href="#estacao">Estação</a></li>
+          <li><a href="index.html#localidades">Locais</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="conteudo-dashboard" class="container dashboard-container">
+    <div class="seletor-locais">
+      <span class="rotulo-locais" id="rotulo-locais">LOCALIDADE</span>
+      <div class="navegador-locais">
+        <button class="botao-contorno trocar-local" id="local-anterior" type="button"
+          aria-label="Localidade anterior" aria-controls="dashboard" disabled><svg class="icone" aria-hidden="true" focusable="false"><use href="../ASSETS/icones-dashboard.svg#arrow-left"></use></svg></button>
+        <div class="abas-locais" role="tablist" aria-labelledby="rotulo-locais">
+        </div>
+        <button class="botao-contorno trocar-local" id="local-proximo" type="button"
+          aria-label="Próxima localidade" aria-controls="dashboard" disabled><svg class="icone" aria-hidden="true" focusable="false"><use href="../ASSETS/icones-dashboard.svg#arrow-right"></use></svg></button>
+      </div>
+    </div>
+    <div id="estado-dashboard" class="estado-dados"></div>
+    <noscript><p class="aviso">Ative o JavaScript para carregar os dashboards e selecionar uma localidade.</p></noscript>
+
+    <section id="dashboard" role="tabpanel" aria-labelledby="aba-sorocaba" tabindex="0">
+      <div class="cabecalho-dashboard">
+        <div>
+          <h1>Monitoramento Ambiental</h1>
+          <p><strong id="nome-local">Selecione uma localidade</strong><span id="condicao-local"></span></p>
+        </div>
+        <div class="atualizacao">
+          <div>
+            <p>Última leitura: <time id="ultima-leitura">—</time></p></div>
+          <button id="recarregar" class="botao-contorno" type="button" disabled>
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="../ASSETS/icones-dashboard.svg#refresh"></use></svg> Atualizar dados
+          </button>
+        </div>
+      </div>
+
+      <section aria-labelledby="titulo-condicoes">
+        <div class="titulo-secao"><h2 id="titulo-condicoes">Condições da localidade</h2>
+          <p>Medições da estação selecionada</p></div>
+        <dl class="indicadores indicadores-dashboard">
+          <div class="metrica">
+            <dt><span class="icone-metrica"><svg aria-hidden="true"><use href="../ASSETS/icones-dashboard.svg#temperature"></use></svg></span>Temperatura</dt>
+            <dd class="medida"><span id="metrica-temperatura">—</span> <span class="unidade">°C</span></dd>
+          </div>
+          <div class="metrica">
+            <dt><span class="icone-metrica"><svg aria-hidden="true"><use href="../ASSETS/icones-dashboard.svg#humidity"></use></svg></span>Umidade relativa</dt>
+            <dd class="medida"><span id="metrica-umidade">—</span> <span class="unidade">%</span></dd>
+          </div>
+          <div class="metrica">
+            <dt><span class="icone-metrica"><svg aria-hidden="true"><use href="../ASSETS/icones-dashboard.svg#pressure"></use></svg></span>Pressão atmosférica</dt>
+            <dd class="medida"><span id="metrica-pressao">—</span> <span class="unidade">hPa</span></dd>
+          </div>
+          <div class="metrica">
+            <dt><span class="icone-metrica"><svg aria-hidden="true"><use href="../ASSETS/icones-dashboard.svg#air"></use></svg></span>Qualidade do ar</dt>
+            <dd class="medida"><span id="metrica-ar">—</span> <span class="unidade"></span></dd>
+          </div>
+          <div class="metrica">
+            <dt><span class="icone-metrica"><svg aria-hidden="true"><use href="../ASSETS/icones-dashboard.svg#light"></use></svg></span>Luminosidade</dt>
+            <dd class="medida"><span id="metrica-luminosidade">—</span> <span class="unidade">lx</span></dd>
+          </div>
+        </dl>
+        <p class="nota-unidade">Qualidade do ar: valor bruto da API; unidade e calibração não informadas.</p>
+      </section>
+
+      <section id="historico" aria-labelledby="titulo-analises">
+        <div class="titulo-secao"><h2 id="titulo-analises">Tendência e interpretação</h2>
+          <p>Consulte as leituras por data</p></div>
+        <div class="grade-apoio grade-dashboard">
+          <section class="painel-apoio painel-grafico" aria-labelledby="titulo-grafico">
+            <div class="cabecalho-grafico">
+              <div><h3 id="titulo-grafico">Temperatura por data</h3>
+                <p id="subtitulo-grafico">Aguardando consulta</p></div>
+              <div class="filtro-data"><label for="data-historico">Data do histórico</label>
+                <input id="data-historico" type="date"></div>
+            </div>
+            <output id="leitura-grafico" class="leitura-grafico">Selecione um ponto para consultar a amostra.</output>
+            <svg id="grafico" viewBox="0 0 800 280" role="group" aria-label="Gráfico de temperatura"></svg>
+            <p id="resumo-grafico" class="resumo-grafico"></p>
+            <details class="dados-grafico">
+              <summary>Consultar dados do gráfico em tabela</summary>
+              <div class="rolagem-tabela" tabindex="0" role="region" aria-label="Dados do gráfico">
+                <table><caption id="legenda-serie">Leituras da estação</caption>
+                  <thead><tr><th scope="col">Data e hora (UTC−03)</th><th scope="col">Temperatura</th></tr></thead>
+                  <tbody id="tabela-serie"></tbody>
+                </table>
+              </div>
+            </details>
+          </section>
+          <aside class="painel-apoio resumo-dashboard" aria-labelledby="titulo-resumo">
+            <h3 id="titulo-resumo">Resumo ambiental</h3>
+            <div class="destaque-resumo"><strong>Interpretação da umidade</strong>
+              <p id="resumo-texto">Selecione uma localidade para consultar suas leituras.</p></div>
+            <dl class="ficha-projeto">
+              <div><dt>Temperatura mínima</dt><dd id="resumo-minima">—</dd></div>
+              <div><dt>Temperatura máxima</dt><dd id="resumo-maxima">—</dd></div>
+              <div><dt>Umidade da última amostra</dt><dd id="resumo-umidade">—</dd></div>
+            </dl>
+            <p class="nota-resumo">Não constitui avaliação de risco ambiental. Classificações dependem da calibração dos sensores.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="medicoes" aria-labelledby="titulo-medicoes">
+        <div class="titulo-secao"><h2 id="titulo-medicoes">Últimas medições</h2><p>Leituras da data selecionada</p></div>
+        <div class="grade-apoio grade-dashboard">
+          <div class="painel-apoio painel-tabela">
+            <div class="rolagem-tabela" tabindex="0" role="region" aria-label="Últimas medições da localidade">
+              <table>
+                <caption id="legenda-medicoes">Registros da estação</caption>
+                <thead><tr><th scope="col">Horário</th><th scope="col">Temperatura</th>
+                  <th scope="col">Umidade</th><th scope="col">Pressão</th><th scope="col">Qualidade do ar</th></tr></thead>
+                <tbody id="registros-medicoes"></tbody>
+              </table>
+            </div>
+            <button id="expandir-medicoes" class="link-destaque" type="button" aria-expanded="false"
+              aria-controls="registros-medicoes" disabled>Ver todas as amostras</button>
+          </div>
+          <section id="estacao" class="painel-apoio" aria-labelledby="titulo-estacao">
+            <h3 id="titulo-estacao">Sobre esta estação</h3>
+            <dl class="ficha-projeto">
+              <div><dt>Localidade</dt><dd id="estacao-local">—</dd></div>
+            </dl>
+          </section>
+        </div>
+      </section>
+    </section>
+    <p class="sr-only" id="anuncio-dashboard" role="status" aria-atomic="true"></p>
+  </main>
+  <footer class="rodape"><div class="container">
+    <p>Estação Ambiental IoT — Projeto AERIS</p><a href="index.html#localidades">Escolher outro local</a>
+  </div></footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Painel demonstrativo do projeto acadêmico Estação Ambiental IoT.">
+  <title>Estação Ambiental IoT — Painel meteorológico</title>
+  <link rel="stylesheet" href="../CSS/painel.css?v=20261027b">
+  <script type="module" src="../JAVA%20SCRIPT/painel.js?v=20261027b"></script>
+</head>
+<body class="pagina-index">
+  <a class="pular-conteudo" href="#conteudo-principal">Ir para o conteúdo principal</a>
+  <header class="cabecalho">
+    <div class="barra-navegacao">
+      <a class="marca" href="#apresentacao" aria-label="AERIS — Estação Ambiental IoT">AERIS</a>
+      <nav aria-label="Navegação principal">
+        <ul>
+          <li><a href="#localidades" aria-current="location">Locais</a></li>
+          <li><a href="#sobre-nos">Sobre nós</a></li>
+          <li><a id="link-dashboard" href="dashboard.html?local=sorocaba">Dashboard</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <main id="conteudo-principal">
+    <div class="pagina-locais container">
+      <section id="apresentacao" class="apresentacao" aria-labelledby="titulo-apresentacao">
+        <div>
+          <h1 id="titulo-apresentacao">Explore o clima por local</h1>
+          <p>Selecione uma cidade para acompanhar as condições ambientais e acessar os dados completos.</p>
+        </div>
+        <form role="search" id="busca-localidades">
+          <label class="sr-only" for="busca">Buscar cidade ou estação</label>
+          <input id="busca" type="search" placeholder="Buscar cidade ou estação" autocomplete="off" disabled>
+        </form>
+      </section>
+
+      <section id="localidades" aria-labelledby="titulo-localidades">
+        <div class="titulo-secao">
+          <h2 id="titulo-localidades">Locais monitorados</h2>
+          <p id="contagem-localidades">Localidades · dados demonstrativos</p>
+        </div>
+        <div class="carrossel" role="region" aria-roledescription="carrossel" aria-label="Localidades">
+          <button class="seta anterior" type="button" aria-label="Localidade anterior"
+            aria-controls="lista-localidades" disabled><svg class="icone" aria-hidden="true" focusable="false"><use href="../ASSETS/icones-dashboard.svg#arrow-left"></use></svg></button>
+          <ul id="lista-localidades" class="lista-localidades" tabindex="0"
+            aria-label="Localidades. Use as setas do teclado, Home ou End para selecionar.">
+          </ul>
+          <button class="seta proxima" type="button" aria-label="Próxima localidade"
+            aria-controls="lista-localidades" disabled><svg class="icone" aria-hidden="true" focusable="false"><use href="../ASSETS/icones-dashboard.svg#arrow-right"></use></svg></button>
+        </div>
+        <div class="paginacao" role="group" aria-label="Selecionar localidade"></div>
+        <p id="resultado-busca" role="status" class="mensagem-busca"></p>
+        <p id="anuncio-localidade" class="sr-only" role="status" aria-atomic="true"></p>
+        <noscript><p class="aviso">Ative o JavaScript para selecionar localidades e acessar os dashboards de cada cidade.</p></noscript>
+      </section>
+      <section id="sobre-nos" class="sobre-nos" aria-labelledby="titulo-sobre-nos">
+        <div><h2 id="titulo-sobre-nos">Sobre nós</h2>
+          <p>AERIS é um projeto acadêmico de monitoramento ambiental desenvolvido por estudantes de
+            Ciência da Computação. Nosso propósito é aproximar tecnologia e compreensão do ambiente,
+            organizando medições para apoiar a observação das condições locais.</p>
+          <p>A proposta conecta sensores a um ESP32, que envia as medições para uma API e permite sua
+            consulta na plataforma. O trabalho reúne coleta de dados, desenvolvimento web e análise
+            ambiental como exercício de aprendizagem. A disponibilidade de leituras depende das estações.</p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+  <footer class="rodape"><div class="container">
+    <p>Estação Ambiental IoT <span>— Projeto AERIS</span></p>
+    <a href="#conteudo-principal">Voltar ao início</a>
+  </div></footer>
+</body>
+</html>
